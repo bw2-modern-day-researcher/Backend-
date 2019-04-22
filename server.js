@@ -2,7 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 
-// const routes = require('./User Backend/user-router');
+const userroutes = require('./user/user-router');
+const postroutes = require('./posts/post-router')
 
 const server = express();
 
@@ -18,6 +19,8 @@ server.get('/', (req, res) => {
     )
  })
 
-// server.use('/api', routes)
+server.use('/api', userroutes)
+server.use('/api', postroutes)
 
 module.exports = server;
+
