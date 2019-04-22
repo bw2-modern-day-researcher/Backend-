@@ -51,6 +51,7 @@ router.get(`/user/:id`, tokenCheck, (req, res) => {
 })
 
 
+
 router.post('/register', (req, res) => {
     let user = req.body;
     const hash = bcrypt.hashSync(user.password, 4)

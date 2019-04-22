@@ -3,6 +3,7 @@ const db = require('./post-model')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
+
 const secret = 'secret'
 
 function generateToken(user) {
@@ -19,25 +20,25 @@ function generateToken(user) {
 
 
 
-function tokenCheck(req, res, next) {
-    const token = req.headers.authorization
+// function tokenCheck(req, res, next) {
+//     const token = req.headers.authorization
 
-    if(token) {
-        jwt.verify(token, secret, (err, decodedToken) => {
-            if (err) {
-                res.status(401).json({ message: "You are not authorized" })
-            } else {
-                next();
-            }
-        })
-    } else {
-        res.status(401).json({ message: "You need a token to log in" })
-    }
-}
+//     if(token) {
+//         jwt.verify(token, secret, (err, decodedToken) => {
+//             if (err) {
+//                 res.status(401).json({ message: "You are not authorized" })
+//             } else {
+//                 next();
+//             }
+//         })
+//     } else {
+//         res.status(401).json({ message: "You need a token to log in" })
+//     }
+// }
 
 
 
-router.get(`/post/home`, (req, res) => {
+router.get(`/post`, (req, res) => {
     
 
     db
@@ -68,7 +69,20 @@ router.post('/post/create', (req, res) => {
 })
 
 
+router.delete('/post/delete/:id', (req, res) => {
+    let id = req.params.id;
 
+    db
+    .remove(id)
+    .then(users => {
+        res.status(204).end();
+    })
+    .catch(err => {
+        res.status(500).json({
+            error: "cannot be removed"
+        })
+    })
+})
 
 
 

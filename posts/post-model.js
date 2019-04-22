@@ -6,7 +6,8 @@ module.exports = {
     getPost,
     add,
     getBy,
-    getById
+    getById,
+    remove
 };
 
 function getPost() {
@@ -33,3 +34,8 @@ function add(post) {
 }
 
 
+function remove(id) {
+    return db('post')
+      .where('id', id)
+      .del();
+  }
