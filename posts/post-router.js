@@ -19,7 +19,6 @@ function generateToken(user) {
 }
 
 
-
 router.get(`/post`, (req, res) => {
     
 
@@ -78,6 +77,25 @@ router.get('/post/:username', (req, res) => {
         .catch(err => {
             res.status(401).json({ error: "user does not exist" })
         })
+})
+
+
+router.put('/post/update/:id', (req, res) => {
+
+    const id = req.params.id
+    const actionbod = req.body
+
+    db
+    .update(id, actionbod)
+    .then(updated => {
+        res.status(200).json(updated)
+    })
+    .catch(error => {
+        res.status(500).json({
+            error: "The information could not be modified"
+        })
+    })
+
 })
 
 

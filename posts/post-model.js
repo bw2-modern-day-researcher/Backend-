@@ -7,7 +7,8 @@ module.exports = {
     add,
     getBy,
     getByUsername,
-    remove
+    remove,
+    update
 };
 
 function getPost() {
@@ -43,4 +44,11 @@ function remove(id) {
     return db('post')
       .where('id', id)
       .del();
+  }
+
+  function update(id, changes) {
+    return db('post')
+    .where('id', id)
+    .update(changes)
+    .then(count => (count > 0 ? this.getById(id) : null))
   }
