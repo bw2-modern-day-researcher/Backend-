@@ -23,7 +23,7 @@ router.get(`/post`, (req, res) => {
     
 
     db
-    .getPost().where({public: 0})
+    .getPost().where({public: 1})
     .then(user => {
         res.status(200).json(
             user
