@@ -23,9 +23,11 @@ router.get(`/post`, (req, res) => {
     
 
     db
-    .getPost()
+    .getPost().where({public: 0})
     .then(user => {
-        res.status(200).json(user)
+        res.status(200).json(
+            user
+        )
     })
     .catch(err => {
         res.status(500).json({message: "there was an error"})
@@ -41,7 +43,9 @@ router.post('/post/create', (req, res) => {
     .add(user)
     .then(info => {
         
-        res.status(201).json({info})
+        res.status(201).json({
+            ...info
+        })
     })
     .catch(err => {
         res.status(500).json(error)
