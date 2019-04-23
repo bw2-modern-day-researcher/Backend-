@@ -7,6 +7,7 @@ exports.up = function(knex, Promise) {
         tbl.string("link", 128).notNullable()
         tbl.string("imgURL", 128)
         tbl.string("description", 128)
+        tbl.string("username", 128)
     })
   
   

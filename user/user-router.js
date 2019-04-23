@@ -43,11 +43,19 @@ router.get(`/user/:id`, tokenCheck, (req, res) => {
     db
     .getById(ID)
     .then(user => {
-        res.status(200).json(user)
+
+
+        res.status(200).json({
+            ...user,
+
+        })
+
+
     })
     .catch(err => {
         res.status(500).json({message: "there was an error"})
     })
+
 })
 
 
@@ -64,9 +72,32 @@ router.post('/register', (req, res) => {
         res.status(201).json({...info, token})
     })
     .catch(err => {
-        res.status(500).json(error)
+        res.status(500).json(err)
     })
 
+})
+
+
+router.post('/login', (req, res) => {
+    let { username, password} = req.body;
+
+    db
+    .getBy({username})
+    .then(user => {
+        if (user && bcrypt.compareSync(password, user.password)) {
+            
+            const token = generateToken(user); 
+
+            res.status(200).json({ message: `Welcome ${user.username}`, token })
+        } else {
+            res.status(401).json({ 
+                message: 'YOU SHALL NOT PASS' 
+             })
+        }
+    })
+    .catch( error => {
+        res.status(500).json(error)
+    })
 })
 
 

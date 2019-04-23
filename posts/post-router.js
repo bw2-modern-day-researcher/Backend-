@@ -20,24 +20,6 @@ function generateToken(user) {
 
 
 
-// function tokenCheck(req, res, next) {
-//     const token = req.headers.authorization
-
-//     if(token) {
-//         jwt.verify(token, secret, (err, decodedToken) => {
-//             if (err) {
-//                 res.status(401).json({ message: "You are not authorized" })
-//             } else {
-//                 next();
-//             }
-//         })
-//     } else {
-//         res.status(401).json({ message: "You need a token to log in" })
-//     }
-// }
-
-
-
 router.get(`/post`, (req, res) => {
     
 
@@ -84,6 +66,19 @@ router.delete('/post/delete/:id', (req, res) => {
     })
 })
 
+
+router.get('/post/:username', (req, res) => {
+        let username = req.params.username
+
+        db
+        .getByUsername(username)
+        .then(posts => {
+            res.status(201).send(posts)
+        })
+        .catch(err => {
+            res.status(401).json({ error: "user does not exist" })
+        })
+})
 
 
 module.exports = router
