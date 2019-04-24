@@ -9,6 +9,8 @@ GET req to see individual user - /api/user/:id  - Allows front end access to eac
 
 GET req to retrieve each users posts - /api/post/:username 
 
+GET req to - api/logout - logs out user 
+
 ------------------------------------------------
 
 //	ARTICLE ENDPOINTS
